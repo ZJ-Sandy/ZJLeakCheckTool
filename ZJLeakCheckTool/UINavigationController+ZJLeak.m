@@ -17,7 +17,26 @@ extern const void* const ZJHasBeenPoppedKey;
     dispatch_once(&onceToken, ^{
         [self zj_hookOrigInstanceMenthod:@selector(popViewControllerAnimated:) newInstanceMenthod:@selector(zj_popViewControllerAnimated:)];
         [self zj_hookOrigInstanceMenthod:@selector(presentViewController:animated:completio:) newInstanceMenthod:@selector(zj_presentViewController:animated:completion:)];
+        [self zj_hookOrigInstanceMenthod:@selector(popToViewController:animated:) newInstanceMenthod:@selector(zj_popToViewController:animated:)];
+        [self zj_hookOrigInstanceMenthod:@selector(zj_popToRootViewControllerAnimated:) newInstanceMenthod:@selector(zj_popToRootViewControllerAnimated:)];
+        
     });
+}
+
+- (NSArray<UIViewController *> *)zj_popToRootViewControllerAnimated:(BOOL)animated{
+        NSArray <UIViewController *> *popViewControllers = [self zj_popToRootViewControllerAnimated:animated];
+    for (UIViewController *viewController in popViewControllers) {
+        [viewController zj_Dealloc];
+    }
+    return popViewControllers;
+}
+
+- (NSArray<UIViewController *> *)zj_popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    NSArray <UIViewController *> *popViewControllers = [self zj_popToViewController:viewController animated:animated];
+    for (UIViewController *viewController in popViewControllers) {
+        [viewController zj_Dealloc];
+    }
+    return popViewControllers;
 }
 
 - (UIViewController *)zj_popViewControllerAnimated:(BOOL)animated{
@@ -29,7 +48,8 @@ extern const void* const ZJHasBeenPoppedKey;
     return popVC;
 }
 
-- (void)zj_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
+
+- (void)zj_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
     /**
      * 当视图POP出去后，记录为YES
      */
