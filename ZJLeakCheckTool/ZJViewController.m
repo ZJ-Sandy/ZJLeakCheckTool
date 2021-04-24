@@ -38,16 +38,25 @@ typedef void (^ZJBlock)(void);
     };
     
     
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40, 300, self.view.frame.size.width - 80, 40)];
-        [btn setTitle:@"pop" forState:UIControlStateNormal];
-        btn.backgroundColor = [UIColor orangeColor];
-        [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40, 300, self.view.frame.size.width - 80, 40)];
+    [btn setTitle:@"pop" forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor orangeColor];
+    [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+    
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(40, 380, self.view.frame.size.width - 80, 40)];
+    [btn1 setTitle:@"dismiss" forState:UIControlStateNormal];
+    btn1.backgroundColor = [UIColor orangeColor];
+    [btn1 addTarget:self action:@selector(btnClickAction1) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
     
 }
 
 - (void)btnClickAction{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)btnClickAction1{    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

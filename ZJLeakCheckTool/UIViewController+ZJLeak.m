@@ -18,6 +18,7 @@ const void *const ZJHasBeenPoppedKey = &ZJHasBeenPoppedKey;
     dispatch_once(&onceToken, ^{
         [self zj_hookOrigInstanceMenthod:@selector(viewWillAppear:) newInstanceMenthod:@selector(zj_viewWillAppear:)];
         [self zj_hookOrigInstanceMenthod:@selector(viewDidDisappear:) newInstanceMenthod:@selector(zj_viewDidDisappear:)];
+        [self zj_hookOrigInstanceMenthod:@selector(dismissViewControllerAnimated:completion:) newInstanceMenthod:@selector(zj_dismissViewControllerAnimated:completion:)];
     });
 }
 
@@ -41,6 +42,20 @@ const void *const ZJHasBeenPoppedKey = &ZJHasBeenPoppedKey;
     if ([objc_getAssociatedObject(self, ZJHasBeenPoppedKey) boolValue]) {
         [self zj_Dealloc];
     }
+}
+
+- (void)zj_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
+    [self zj_dismissViewControllerAnimated:flag completion:completion];
+    
+    UIViewController *dismissvc = self.presentingViewController;
+    if (!dismissvc && self.presentingViewController) {
+        dismissvc = self;
+    }
+    
+    if (!dismissvc) { return; }
+    
+    [dismissvc zj_Dealloc];
+    
 }
 
 @end

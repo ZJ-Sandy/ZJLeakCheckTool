@@ -26,11 +26,22 @@
     btn.backgroundColor = [UIColor orangeColor];
     [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(40, 380, self.view.frame.size.width - 80, 40)];
+    [btn1 setTitle:@"present" forState:UIControlStateNormal];
+    btn1.backgroundColor = [UIColor orangeColor];
+    [btn1 addTarget:self action:@selector(btnClickAction1) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
 }
 
 - (void)btnClickAction{
     ZJViewController *vc = [[ZJViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)btnClickAction1{
+    ZJViewController *vc = [[ZJViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 
